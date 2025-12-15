@@ -45,3 +45,7 @@ htmlcov/
 
 # Logs
 *.log
+
+# Temp files
+nohup.out
+
