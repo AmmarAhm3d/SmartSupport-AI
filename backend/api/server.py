@@ -12,7 +12,14 @@ from flask_cors import CORS
 from backend.agents import AgentOrchestrator
 
 app = Flask(__name__)
-CORS(app)  # Enable CORS for frontend communication
+
+# Restrict CORS to trusted origins
+allowed_origins = os.environ.get("ALLOWED_ORIGINS", "*")
+if allowed_origins == "*":
+    # Allow all for development, but log a warning
+    CORS(app)
+else:
+    CORS(app, origins=[origin.strip() for origin in allowed_origins.split(",")])
 
 # Initialize orchestrator
 orchestrator = AgentOrchestrator()
@@ -48,6 +55,13 @@ def chat():
             }), 400
         
         query = data['query']
+        
+        # Validate query
+        if not isinstance(query, str) or len(query) > 1000:
+            return jsonify({
+                "error": "Invalid query or query too long (maximum 1000 characters allowed)"
+            }), 400
+        
         session_id = data.get('session_id')
         
         result = orchestrator.handle_text_request(query, session_id)
@@ -81,6 +95,14 @@ def voice():
             }), 400
         
         audio_data = data['audio_data']
+        
+        # Limit: 10 MB base64-encoded audio (~7.5 MB raw)
+        MAX_AUDIO_DATA_SIZE = 10 * 1024 * 1024  # 10 MB
+        if len(audio_data) > MAX_AUDIO_DATA_SIZE:
+            return jsonify({
+                "error": "audio_data payload too large (limit is 10 MB base64-encoded)"
+            }), 413
+        
         audio_format = data.get('format', 'wav')
         session_id = data.get('session_id')
         

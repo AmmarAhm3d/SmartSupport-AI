@@ -1,8 +1,7 @@
 """Voice Agent for processing audio-based customer inquiries."""
 
 import base64
-import json
-from typing import Dict
+from typing import Dict, Any
 
 
 class VoiceAgent:
@@ -12,21 +11,21 @@ class VoiceAgent:
         """Initialize voice agent."""
         self.supported_formats = ['wav', 'mp3', 'ogg']
         
-    def process_audio(self, audio_data: str, format: str = 'wav') -> Dict[str, any]:
+    def process_audio(self, audio_data: str, audio_format: str = 'wav') -> Dict[str, Any]:
         """
         Process audio input and convert to text.
         
         Args:
             audio_data: Base64 encoded audio data
-            format: Audio format (wav, mp3, ogg)
+            audio_format: Audio format (wav, mp3, ogg)
             
         Returns:
             Dictionary with transcribed text and metadata
         """
-        if format not in self.supported_formats:
+        if audio_format not in self.supported_formats:
             return {
                 "success": False,
-                "error": f"Unsupported format. Supported: {self.supported_formats}"
+                "error": f"Unsupported format. Supported: {', '.join(self.supported_formats)}"
             }
         
         # Simulate transcription (in production, would use speech-to-text API)
@@ -36,7 +35,7 @@ class VoiceAgent:
         return {
             "success": True,
             "text": transcribed_text,
-            "format": format,
+            "format": audio_format,
             "confidence": 0.95
         }
     
@@ -57,10 +56,10 @@ class VoiceAgent:
             else:
                 # Default simulated transcription
                 return "How can I get pricing information for your service?"
-        except:
+        except Exception:
             return "How can I get pricing information for your service?"
     
-    def synthesize_speech(self, text: str, voice: str = "default") -> Dict[str, any]:
+    def synthesize_speech(self, text: str, voice: str = "default") -> Dict[str, Any]:
         """
         Convert text to speech audio.
         

@@ -8,7 +8,7 @@ import os
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
-from backend.agents import NLPAgent, VoiceAgent, AgentOrchestrator
+from backend.agents import NLPAgent, AgentOrchestrator
 
 
 class TestE2ESmartSupportAI(unittest.TestCase):

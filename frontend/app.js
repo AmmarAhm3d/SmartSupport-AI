@@ -69,8 +69,6 @@ async function sendMessage() {
 }
 
 async function handleVoiceInput() {
-    const voiceBtn = document.getElementById('voiceBtn');
-    
     // Simulate voice input for demo
     addMessage('🎤 Voice input (simulated): "What are your pricing options?"', 'user');
     
@@ -163,18 +161,18 @@ function updateAnalyticsDashboard(data) {
     updateChart('sentimentChart', data.sentiment_distribution || {});
 }
 
-function updateChart(containerId, data) {
+function updateChart(containerId, chartData) {
     const container = document.getElementById(containerId);
     
-    if (Object.keys(data).length === 0) {
+    if (Object.keys(chartData).length === 0) {
         container.innerHTML = '<div class="loading">No data yet</div>';
         return;
     }
 
-    const total = Object.values(data).reduce((a, b) => a + b, 0);
+    const total = Object.values(chartData).reduce((a, b) => a + b, 0);
     
     let html = '';
-    for (const [label, value] of Object.entries(data)) {
+    for (const [label, value] of Object.entries(chartData)) {
         const percentage = (value / total) * 100;
         html += `
             <div class="chart-bar">
@@ -190,5 +188,5 @@ function updateChart(containerId, data) {
 }
 
 function generateSessionId() {
-    return 'session_' + Math.random().toString(36).substr(2, 9);
+    return 'session_' + Math.random().toString(36).substring(2, 11);
 }

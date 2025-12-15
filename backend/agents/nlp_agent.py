@@ -1,7 +1,7 @@
 """NLP Agent for processing text-based customer inquiries."""
 
 import re
-from typing import Dict, List, Tuple
+from typing import Dict, Tuple, Any
 
 
 class NLPAgent:
@@ -41,7 +41,7 @@ class NLPAgent:
             r'\bgood\s+(morning|afternoon|evening)\b'
         ]
         
-    def process_query(self, query: str) -> Dict[str, any]:
+    def process_query(self, query: str) -> Dict[str, Any]:
         """
         Process a customer query and return appropriate response.
         
@@ -51,6 +51,13 @@ class NLPAgent:
         Returns:
             Dictionary with response, confidence, and intent
         """
+        if not isinstance(query, str) or query is None:
+            return {
+                "response": "I'm not sure I understand. Could you please rephrase your question? You can ask about pricing, features, support, hours, demos, or integrations.",
+                "confidence": 0.0,
+                "intent": "unknown"
+            }
+        
         query_lower = query.lower().strip()
         
         # Check for greetings
@@ -128,6 +135,9 @@ class NLPAgent:
         Returns:
             Sentiment classification: positive, negative, or neutral
         """
+        if not isinstance(text, str) or text is None:
+            raise ValueError("Input 'text' must be a non-None string.")
+        
         text_lower = text.lower()
         
         positive_words = ["good", "great", "excellent", "thanks", "thank", "love", "amazing", "perfect"]

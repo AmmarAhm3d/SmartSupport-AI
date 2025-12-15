@@ -1,7 +1,7 @@
 """Agent Orchestrator for coordinating multiple AI agents."""
 
 import time
-from typing import Dict, List
+from typing import Dict, Any
 from .nlp_agent import NLPAgent
 from .voice_agent import VoiceAgent
 
@@ -15,7 +15,7 @@ class AgentOrchestrator:
         self.voice_agent = VoiceAgent()
         self.request_history = []
         
-    def handle_text_request(self, query: str, session_id: str = None) -> Dict[str, any]:
+    def handle_text_request(self, query: str, session_id: str = None) -> Dict[str, Any]:
         """
         Handle text-based customer request.
         
@@ -55,7 +55,7 @@ class AgentOrchestrator:
         return result
     
     def handle_voice_request(self, audio_data: str, audio_format: str = 'wav', 
-                            session_id: str = None) -> Dict[str, any]:
+                            session_id: str = None) -> Dict[str, Any]:
         """
         Handle voice-based customer request.
         
@@ -106,7 +106,7 @@ class AgentOrchestrator:
         
         return result
     
-    def get_analytics(self) -> Dict[str, any]:
+    def get_analytics(self) -> Dict[str, Any]:
         """
         Get analytics about agent performance.
         

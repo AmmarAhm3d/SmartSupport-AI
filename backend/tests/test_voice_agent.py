@@ -1,7 +1,6 @@
 """Unit tests for Voice Agent."""
 
 import unittest
-import base64
 from backend.agents.voice_agent import VoiceAgent
 
 
