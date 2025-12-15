@@ -1,0 +1,22 @@
+{
+  "name": "smartsupport-ai",
+  "version": "1.0.0",
+  "description": "Multi-Agent Customer Service Platform with Full-Stack, NLP, and Voice AI",
+  "main": "frontend/app.js",
+  "scripts": {
+    "test": "python -m pytest backend/tests/ -v",
+    "test:unit": "python -m unittest discover -s backend/tests -p 'test_*.py' -v",
+    "start": "python backend/api/server.py",
+    "dev": "python backend/api/server.py"
+  },
+  "keywords": [
+    "AI",
+    "customer-service",
+    "multi-agent",
+    "NLP",
+    "voice-AI",
+    "chatbot"
+  ],
+  "author": "SmartSupport AI Team",
+  "license": "MIT"
+}

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartSupport AI - Multi-Agent Customer Service</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🤖 SmartSupport AI</h1>
+            <p class="tagline">Multi-Agent Customer Service Platform | 24/7 Support</p>
+        </header>
+
+        <div class="main-content">
+            <div class="chat-container">
+                <div class="chat-header">
+                    <h2>Customer Support Chat</h2>
+                    <div class="status">
+                        <span class="status-indicator active"></span>
+                        <span>AI Agent Online</span>
+                    </div>
+                </div>
+
+                <div id="chatMessages" class="chat-messages">
+                    <div class="message bot-message">
+                        <div class="message-content">
+                            <strong>AI Assistant:</strong> Hello! I'm your AI assistant. How can I help you today? 
+                            You can ask about pricing, features, support, hours, demos, or integrations.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="chat-input-container">
+                    <input 
+                        type="text" 
+                        id="userInput" 
+                        placeholder="Type your question here..."
+                        autocomplete="off"
+                    >
+                    <button id="sendBtn" class="btn btn-primary">Send</button>
+                    <button id="voiceBtn" class="btn btn-voice" title="Voice input (simulated)">
+                        🎤
+                    </button>
+                </div>
+            </div>
+
+            <div class="analytics-container">
+                <div class="analytics-header">
+                    <h3>Analytics Dashboard</h3>
+                    <button id="refreshBtn" class="btn btn-small">Refresh</button>
+                </div>
+                
+                <div class="analytics-grid">
+                    <div class="metric-card">
+                        <div class="metric-label">Total Requests</div>
+                        <div class="metric-value" id="totalRequests">0</div>
+                    </div>
+                    
+                    <div class="metric-card">
+                        <div class="metric-label">Avg Response Time</div>
+                        <div class="metric-value" id="avgResponseTime">0ms</div>
+                    </div>
+                    
+                    <div class="metric-card">
+                        <div class="metric-label">Text Requests</div>
+                        <div class="metric-value" id="textRequests">0</div>
+                    </div>
+                    
+                    <div class="metric-card">
+                        <div class="metric-label">Voice Requests</div>
+                        <div class="metric-value" id="voiceRequests">0</div>
+                    </div>
+                </div>
+
+                <div class="chart-section">
+                    <h4>Intent Distribution</h4>
+                    <div id="intentChart" class="chart-container"></div>
+                </div>
+
+                <div class="chart-section">
+                    <h4>Sentiment Analysis</h4>
+                    <div id="sentimentChart" class="chart-container"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
