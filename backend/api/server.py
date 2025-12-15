@@ -1,9 +1,15 @@
 """REST API for SmartSupport AI platform."""
 
+import sys
+import os
+from pathlib import Path
+
+# Add parent directory to path for imports
+sys.path.insert(0, str(Path(__file__).parent.parent.parent))
+
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 from backend.agents import AgentOrchestrator
-import os
 
 app = Flask(__name__)
 CORS(app)  # Enable CORS for frontend communication

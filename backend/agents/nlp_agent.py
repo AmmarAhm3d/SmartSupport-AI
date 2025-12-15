@@ -31,7 +31,7 @@ class NLPAgent:
                 "response": "Yes! We offer a 14-day free trial with full access to all features. No credit card required."
             },
             "integration": {
-                "keywords": ["integrate", "api", "connect", "plugin"],
+                "keywords": ["integrat", "api", "connect", "plugin"],  # Use stem to match integration/integrations/integrate
                 "response": "We support integrations with Slack, Zendesk, Salesforce, and offer a REST API for custom integrations."
             }
         }
@@ -64,7 +64,7 @@ class NLPAgent:
         # Find matching intent
         intent, confidence = self._find_intent(query_lower)
         
-        if confidence > 0.3:
+        if confidence > 0.0:  # Lower threshold - any match is good
             response = self.knowledge_base[intent]["response"]
             return {
                 "response": response,
@@ -89,20 +89,32 @@ class NLPAgent:
         """Find the best matching intent for the query."""
         best_intent = None
         best_score = 0.0
-        
-        query_words = set(query.split())
+        best_position = float('inf')
         
         for intent, data in self.knowledge_base.items():
             keywords = data["keywords"]
-            matches = sum(1 for keyword in keywords if keyword in query)
+            matches = 0
+            earliest_position = float('inf')
+            
+            # Check for keyword matches in the query
+            for keyword in keywords:
+                if keyword in query:
+                    matches += 1
+                    # Track earliest position of matched keyword
+                    pos = query.find(keyword)
+                    if pos < earliest_position:
+                        earliest_position = pos
             
             if matches > 0:
-                # Calculate confidence based on keyword matches
-                score = matches / len(keywords)
+                # Better scoring: weight by number of matches
+                # This gives higher scores for more keyword matches
+                score = min(matches / 2.0, 1.0)  # Cap at 1.0
                 
-                if score > best_score:
+                # Use position as tiebreaker - prefer intents with keywords earlier in query
+                if score > best_score or (score == best_score and earliest_position < best_position):
                     best_score = score
                     best_intent = intent
+                    best_position = earliest_position
         
         return best_intent or "unknown", best_score
     
